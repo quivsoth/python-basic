@@ -9,7 +9,7 @@ on:
 env:
   REGISTRY: docker.io                                  # Image registry, ghcr.io incase of GitHub Container Registry
   IMAGE_NAME: ${{ github.repository }}                 # Name of the image comes from the repository name
-  E_REPO: michwils/dotnetbasicapi
+  E_REPO: zakriah/pythonbasic
 
 jobs:
   release:
