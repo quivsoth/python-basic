@@ -1,0 +1,43 @@
+name: Docker                                           # Name of the workflow
+
+on:
+  push:
+    #branches: [master]
+    paths:
+      - "src/**"
+
+env:
+  REGISTRY: docker.io                                  # Image registry, ghcr.io incase of GitHub Container Registry
+  IMAGE_NAME: ${{ github.repository }}                 # Name of the image comes from the repository name
+  E_REPO: michwils/dotnetbasicapi
+
+jobs:
+  release:
+    runs-on: ubuntu-latest                            # GitHub Runner OS
+
+    steps:
+      - name: Checkout source code                    # Checksout the repository in the GitHub runner
+        uses: 'actions/checkout@v3'
+        with:
+          ref: ${{ github.ref }}
+          token: ${{secrets.DEV_GITHUB_TOKEN}}
+
+      - name: Automated Version Bump                  # This action step reads and updates the version number acc to commit message
+        id: version-bump
+        uses: 'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEV_GITHUB_TOKEN }}
+
+      - name: Output Step                             # Optional: Prints the new version
+        env:
+          NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+        run: echo "new tag $NEW_TAG"
+
+      - name: docker login
+        run: | # log into docker hub account
+          docker login -u ${{ secrets.DOCKERHUB_REPO_USER }} -p ${{ secrets.DOCKERHUB_REPO_PW }}
+      - name: Build the Docker image # push The image to the docker hub
+        run: docker build . --file src/Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ steps.version-bump.outputs.newTag }}
+
+      - name: Docker Push
+        run: docker push ${{ env.IMAGE_NAME }}:${{ steps.version-bump.outputs.newTag }}
