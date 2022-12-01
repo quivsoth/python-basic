@@ -31,7 +31,7 @@ jobs:
       - name: Output Step                             # Optional: Prints the new version
         env:
           NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
-        run: echo "new tag $NEW_TAG"
+        run: echo "new tag $NEW_TAG | $IMAGE_NAME"
 
       - name: docker login
         run: | # log into docker hub account
