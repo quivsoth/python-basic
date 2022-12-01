@@ -4,6 +4,7 @@ metadata:
   labels:
     app: thermofischer-app
   name: thermofischer
+  namespace: thermofischer
 spec:
   ports:
   - name: 8080-tcp

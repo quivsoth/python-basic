@@ -4,6 +4,7 @@ metadata:
   labels:
     app: python-basic
   name: python-basic
+  namespace: thermofischer
 spec:
   port:
     targetPort: 8080-tcp

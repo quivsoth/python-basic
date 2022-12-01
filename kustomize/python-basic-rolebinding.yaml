@@ -6,7 +6,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: cluster-admin
+  name: admin
 subjects:
 - kind: ServiceAccount
   name: argocd-cluster-argocd-application-controller
@@ -15,4 +15,4 @@ subjects:
   name: openshift-gitops-argocd-application-controller
   namespace: openshift-gitops
 
-  
+# services is forbidden: User "system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller" cannot create resource "services" in API group "" in the namespace "default"
