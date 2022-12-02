@@ -23,7 +23,7 @@ spec:
       containers:
       - name: python-basic
         imagePullPolicy: Always
-        image: docker.io/zakriah/pythonbasic:0.0.11
+        image: docker.io/zakriah/pythonbasic:0.0.14
         livenessProbe:
           failureThreshold: 3
           httpGet:
