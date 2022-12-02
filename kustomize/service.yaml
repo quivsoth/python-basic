@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: thermofischer-app
+    app: python-basic
   name: thermofischer
   namespace: thermofischer
 spec:
@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: thermofischer-app
+    app: python-basic
   sessionAffinity: None
   type: ClusterIP
